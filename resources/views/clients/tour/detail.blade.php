@@ -64,27 +64,23 @@
 
                 <!-- RIGHT SIDEBAR -->
                 <div class="col-md-4 sidebar ftco-animate">
-
                     <div class="sidebar-box bg-light p-4 rounded">
-
-                        <h3 class="text-center text-primary">
-                            3.500.000 VNĐ
-                        </h3>
                         <p class="text-center text-muted">/ người</p>
 
-                        <form>
-                            <div class="form-group">
-                                <label>Ngày khởi hành</label>
-                                <input type="date" class="form-control">
-                            </div>
+                        <form action="{{ route('cart.add') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $tours->id }}">
+                            <input type="hidden" name="type" value="tour"> <input type="hidden" name="name"
+                                value="{{ $tours->name }}">
+                            <input type="hidden" name="price" value="{{ $tours->price }}">
 
                             <div class="form-group">
-                                <label>Số người</label>
-                                <input type="number" class="form-control" value="1" min="1">
+                                <label>Số lượng người:</label>
+                                <input type="number" name="quantity" value="1" min="1" class="form-control">
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-block">
-                                Đặt tour ngay
+                                <i class="fa fa-shopping-cart"></i> Đặt ngay
                             </button>
                         </form>
                     </div>

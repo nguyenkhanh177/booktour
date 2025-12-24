@@ -4,18 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Tour;
+use App\Models\Car;
 use Illuminate\Support\Str;
 
-class TourAdminController extends Controller
+class CarAdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
-    {  
-        $tours = Tour::paginate(5);
-        return view('admin.tour.index', compact('tours'));
+    {
+        $cars = Car::all();
+        return view('admin.car.index', compact('cars'));
     }
 
     /**
@@ -23,7 +23,7 @@ class TourAdminController extends Controller
      */
     public function create()
     {
-        return view('admin.tour.create');
+        return view('admin.car.create');
     }
 
     /**
@@ -31,7 +31,7 @@ class TourAdminController extends Controller
      */
     public function store(Request $request)
     {
-        // 1. Set base data
+        // // 1. Set base data
         $data = $request->except('image');
         $data['alias'] = Str::slug($request->name);
 
@@ -39,13 +39,13 @@ class TourAdminController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/tours'), $filename);
+            $file->move(public_path('uploads/cars'), $filename);
             $data['image'] = $filename;
         }
 
         // 3. Create Record
-        Tour::create($data);
-        return redirect()->route('admin.tour');
+        Car::create($data);
+        return redirect()->route('admin.car');
     }
 
     /**
@@ -61,8 +61,8 @@ class TourAdminController extends Controller
      */
     public function edit(string $id)
     {
-        $tours = Tour::findOrFail($id);
-        return view('admin.tour.edit', compact('tours'));
+        $cars = Car::findOrFail($id);
+        return view('admin.car.edit', compact('cars'));
     }
 
     /**
@@ -70,26 +70,19 @@ class TourAdminController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $tour = Tour::findOrFail($id);
-
+        $cars = Car::findOrFail($id);
         $data = $request->except('image');
         $data['alias'] = Str::slug($request->name);
 
-        // Handle Image Update
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/tours'), $filename);
+            $file->move(public_path('uploads/cars'), $filename);
             $data['image'] = $filename;
-
-            // Optional: Delete old image if exists
-            if ($tour->image && file_exists(public_path('uploads/tours/' . $tour->image))) {
-                unlink(public_path('uploads/tours/' . $tour->image));
-            }
         }
 
-        $tour->update($data);
-        return redirect()->route('admin.tour');
+        $cars->update($data);
+        return redirect()->route('admin.car');
     }
 
     /**
@@ -97,9 +90,8 @@ class TourAdminController extends Controller
      */
     public function destroy(string $id)
     {
-        $tours = Tour::findOrFail($id);
-        $tours->delete();
-        return redirect()->route('admin.tour');
+        $cars = Car::findOrFail($id);
+        $cars->delete();
+        return redirect()->route('admin.car');
     }
-    
 }

@@ -1,8 +1,7 @@
 @extends('layouts.client')
-@section('title', 'Restaurant')
+@section('title', 'Car')
 @section('content')
-    <div class="hero-wrap js-fullheight"
-        style="background-image: url('{{ asset('/uploads/restaurants/' . $restaurants->image) }}');">
+    <div class="hero-wrap js-fullheight" style="background-image: url('{{ asset('/uploads/cars/' . $cars->image) }}');">
         <div class="overlay"></div>
         <div class="container">
             <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
@@ -13,11 +12,11 @@
                         <span class="mr-2">
                             <a href="{{ url('/') }}">Home</a>
                         </span>
-                        <span>Restaurant</span>
+                        <span>Car</span>
                     </p>
 
                     <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
-                        Chi tiết restaurant
+                        Chi tiết car
                     </h1>
                 </div>
             </div>
@@ -29,21 +28,20 @@
                 <div class="col-md-8 ftco-animate">
 
                     <h2 class="mb-3">
-                        {{ $restaurants->name }}
+                        {{ $cars->name }}
                     </h2>
 
                     <p class="text-muted">
-                        <i class="icon-map-marker"></i> {{ $restaurants->address }}
+                        <i class="icon-map-marker"></i> {{ $cars->address }}
                         &nbsp; | &nbsp;
-                        <i class="icon-calendar"></i> {{ $restaurants->time }}
+                        <i class="icon-calendar"></i> {{ $cars->time }}
                     </p>
 
-                    <img src="{{ asset('uploads/restaurants/' . $restaurants->image) }}" alt="Restaurant image"
-                        class="img-fluid mb-4 rounded">
+                    <img src="{{ asset('uploads/cars/' . $cars->image) }}" alt="Car image" class="img-fluid mb-4 rounded">
 
-                    <h4>🧭 Giới thiệu restaurant</h4>
+                    <h4>🧭 Giới thiệu car</h4>
                     <p>
-                        {{ $restaurants->description }}
+                        {{ $cars->description }}
                     </p>
 
                     <h4>📅 Lịch trình</h4>
@@ -65,15 +63,16 @@
 
                 <!-- RIGHT SIDEBAR -->
                 <div class="col-md-4 sidebar ftco-animate">
+
                     <div class="sidebar-box bg-light p-4 rounded">
                         <p class="text-center text-muted">/ người</p>
 
                         <form action="{{ route('cart.add') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="id" value="{{ $restaurants->id }}">
-                            <input type="hidden" name="type" value="restaurant"> <input type="hidden" name="name"
-                                value="{{ $restaurants->name }}">
-                            <input type="hidden" name="price" value="{{ $restaurants->price }}">
+                            <input type="hidden" name="id" value="{{ $cars->id }}">
+                            <input type="hidden" name="type" value="car"> <input type="hidden" name="name"
+                                value="{{ $cars->name }}">
+                            <input type="hidden" name="price" value="{{ $cars->price }}">
 
                             <div class="form-group">
                                 <label>Số lượng người:</label>

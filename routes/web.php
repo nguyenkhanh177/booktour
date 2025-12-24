@@ -11,6 +11,10 @@ use App\Http\Controllers\Admin\HotelAdminController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Client\RestaurantController;
 use App\Http\Controllers\Admin\RestaurantAdminController;
+use App\Http\Controllers\Client\CarController;
+use App\Http\Controllers\Admin\CarAdminController;
+use App\Http\Controllers\Client\BookingController;
+use App\Http\Controllers\Admin\BookingAdminController;
 //login
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -22,6 +26,46 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'Register'])->name('register');
 
+
+
+//client
+Route::get("/", [HomeController::class, 'index'])->name('client.home');
+
+//client tour
+Route::get('/tour', [TourController::class, 'index'])->name('client.tour');
+Route::get('/tour/search', [TourController::class, 'search'])->name('client.tour.search');
+Route::get('/tour/{id}', [TourController::class, 'detail'])->name('client.tour.detail');
+
+//client hotel
+Route::get('/hotel', [HotelController::class, 'index'])->name('client.hotel');
+Route::get('/hotel/search', [HotelController::class, 'search'])->name('client.hotel.search');
+Route::get('/hotel/{id}', [HotelController::class, 'detail'])->name('client.hotel.detail');
+
+//client restaurant
+Route::get('/restaurant', [RestaurantController::class, 'index'])->name('client.restaurant');
+Route::get('/restaurant/{id}', [RestaurantController::class, 'detail'])->name('client.restaurant.detail');
+
+//client car
+Route::get('/car', [CarController::class, 'index'])->name('client.car');
+Route::get('/car/{id}', [CarController::class, 'detail'])->name('client.car.detail');
+
+//booking
+Route::middleware('auth')->group(function () {
+    // Route xử lý thêm vào giỏ
+    Route::post('/add-to-cart', [BookingController::class, 'addToCart'])->name('cart.add');
+    Route::get('/booking/choices', [BookingController::class, 'showChoices'])->name('booking.choices');
+
+    // Route xử lý lưu vào DB
+    Route::get('/checkout', [BookingController::class, 'checkout'])->name('booking.checkout');
+    Route::get('/checkout', [BookingController::class, 'showCheckout'])->name('booking.checkout');
+    Route::post('/cart/remove/{index}', [BookingController::class, 'removeFromCart'])->name('cart.remove');
+    Route::post('/confirm-booking', [BookingController::class, 'confirmBooking'])->name('booking.confirm');
+});
+
+//admin
+// Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+Route::get('/admin', [AdminHomeController::class, 'adminIndex'])->name('admin');
+
 //menu
 Route::get('/admin/menu', [MenuController::class, 'index'])->name('admin.menu');
 Route::get('/admin/menu/create', [MenuController::class, 'create'])->name('admin.menu.create');
@@ -29,24 +73,6 @@ Route::post('/admin/menu', [MenuController::class, 'store'])->name('admin.menu.s
 Route::get('/admin/menu/{id}/edit', [MenuController::class, 'edit'])->name('admin.menu.edit');
 Route::put('/admin/menu/{id}', [MenuController::class, 'update'])->name('admin.menu.update');
 Route::delete('/admin/menu/{id}', [MenuController::class, 'destroy'])->name('admin.menu.destroy');
-
-//client
-Route::get("/", [HomeController::class, 'index'])->name('client.home');
-
-//client tour
-Route::get('/tour', [TourController::class, 'index'])->name('client.tour');
-Route::get('/tour/{id}', [TourController::class, 'detail'])->name('client.tour.detail');
-
-//client hotel
-Route::get('/hotel', [HotelController::class, 'index'])->name('client.hotel');
-Route::get('/hotel/{id}', [HotelController::class, 'detail'])->name('client.hotel.detail');
-
-//client restaurant
-Route::get('/restaurant', [RestaurantController::class, 'index'])->name('client.restaurant');
-Route::get('/restaurant/{id}', [RestaurantController::class, 'detail'])->name('client.restaurant.detail');
-
-//admin
-Route::get('/admin', [AdminHomeController::class, 'adminIndex'])->name('admin');
 
 //admin tour
 Route::get('/admin/tour', [TourAdminController::class, 'index'])->name('admin.tour');
@@ -71,3 +97,18 @@ Route::post('/admin/restaurant', [RestaurantAdminController::class, 'store'])->n
 Route::get('/admin/restaurant/{id}/edit', [RestaurantAdminController::class, 'edit'])->name('admin.restaurant.edit');
 Route::put('/admin/restaurant/{id}', [RestaurantAdminController::class, 'update'])->name('admin.restaurant.update');
 Route::delete('/admin/restaurant/{id}', [RestaurantAdminController::class, 'destroy'])->name('admin.restaurant.destroy');
+
+//admin car
+Route::get('/admin/car', [CarAdminController::class, 'index'])->name('admin.car');
+Route::get('/admin/car/create', [CarAdminController::class, 'create'])->name('admin.car.create');
+Route::post('/admin/car', [CarAdminController::class, 'store'])->name('admin.car.store');
+Route::get('/admin/car/{id}/edit', [CarAdminController::class, 'edit'])->name('admin.car.edit');
+Route::put('/admin/car/{id}', [CarAdminController::class, 'update'])->name('admin.car.update');
+Route::delete('/admin/car/{id}', [CarAdminController::class, 'destroy'])->name('admin.car.destroy');
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/booking', [BookingAdminController::class, 'index'])->name('booking.index');
+    Route::get('/booking/{id}', [BookingAdminController::class, 'show'])->name('booking.show');
+    Route::delete('/booking/{id}', [BookingAdminController::class, 'destroy'])->name('booking.destroy');
+    Route::patch('/booking/{id}/status', [BookingAdminController::class, 'updateStatus'])->name('booking.updateStatus');
+});

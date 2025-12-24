@@ -18,6 +18,7 @@
                             <th>#</th>
                             <th>Tên tour</th>
                             <th>Thời gian</th>
+                            <th>Địa chỉ</th>
                             <th>Giá</th>
                             <th>Ngày tạo</th>
                             <th>Ngày cập nhật</th>
@@ -32,6 +33,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $tour->name }}</td>
                                 <td>{{ $tour->time }}</td>
+                                <td>{{ $tour->address }}</td>
                                 <td>{{ number_format($tour->price) }} VNĐ</td>
                                 <td>{{ $tour->created_at }}</td>
                                 <td>{{ $tour->updated_at }}</td>
@@ -62,8 +64,33 @@
 
                     </tbody>
                 </table>
+                <div class="row mt-5">
+                    <div class="col text-center">
+                        <div class="block-27">
+                            <ul>
+                                {{-- Nút quay lại --}}
+                                @if ($tours->onFirstPage())
+                                    <li class="disabled d-inline-block"><span>&lt;</span></li>
+                                @else
+                                    <li class="d-inline-block"><a href="{{ $tours->previousPageUrl() }}">&lt;</a></li>
+                                @endif
+                                {{-- Danh sách các số trang --}}
+                                @foreach ($tours->getUrlRange(1, $tours->lastPage()) as $page => $url)
+                                    <li class="{{ ($page == $tours->currentPage()) ? 'active' : '' }} d-inline-block">
+                                        <a href="{{ $url }}">{{ $page }}</a>
+                                    </li>
+                                @endforeach
+                                {{-- Nút tiếp theo --}}
+                                @if ($tours->hasMorePages())
+                                    <li class="d-inline-block"><a href="{{ $tours->nextPageUrl() }}">&gt;</a></li>
+                                @else
+                                    <li class="disabled d-inline-block"><span>&gt;</span></li>
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
 @endsection

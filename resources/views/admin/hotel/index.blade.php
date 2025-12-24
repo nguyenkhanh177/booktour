@@ -1,11 +1,11 @@
 @extends('admin.layouts.client')
-@section('title', 'TourAdmin')
+@section('title', 'Quản lý Hotel')
 @section('content')
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3 class="mb-0">Quản lý Tour</h3>
+            <h3 class="mb-0">Quản lý Hotel</h3>
             <a href="{{ route('admin.hotel.create') }}" class="btn btn-primary">
-                + Thêm tour
+                + Thêm hotel
             </a>
         </div>
 
@@ -17,7 +17,7 @@
                         <tr>
                             <th>#</th>
                             <th>Tên hotel</th>
-
+                            <th>Địa chỉ</th>
                             <th>Giá</th>
                             <th>Ngày tạo</th>
                             <th>Ngày cập nhật</th>
@@ -31,6 +31,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $hotel->name }}</td>
+                                <td>{{ $hotel->address }}</td>
                                 <td>{{ number_format($hotel->price) }} VNĐ</td>
                                 <td>{{ $hotel->created_at }}</td>
                                 <td>{{ $hotel->updated_at }}</td>
