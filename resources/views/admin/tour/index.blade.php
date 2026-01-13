@@ -15,7 +15,7 @@
                 <table class="table table-bordered table-hover">
                     <thead class="thead-dark">
                         <tr>
-                            <th>#</th>
+                            <th>STT</th>
                             <th>Tên tour</th>
                             <th>Thời gian</th>
                             <th>Địa chỉ</th>
@@ -32,7 +32,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $tour->name }}</td>
-                                <td>{{ $tour->time }}</td>
+                                <td>{{ $tour->duration_days }} ngày {{ $tour->duration_nights }} đêm</td>
                                 <td>{{ $tour->address }}</td>
                                 <td>{{ number_format($tour->price) }} VNĐ</td>
                                 <td>{{ $tour->created_at }}</td>
@@ -61,7 +61,6 @@
                                 </td>
                             </tr>
                         @endforeach
-
                     </tbody>
                 </table>
                 <div class="row mt-5">

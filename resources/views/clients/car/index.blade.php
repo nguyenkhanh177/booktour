@@ -1,8 +1,8 @@
 @extends('layouts.client')
 @section('title', 'Car')
-@section('active', '/car')
+@section('active', 'car')
 @section('content')
-    <div class="hero-wrap js-fullheight" style="background-image: url({{ asset('assets/images/bg_4.jpg') }});">
+    <div class="hero-wrap js-fullheight" style="background-image: url({{ asset('assets/images/car-2.jpg') }});">
         <div class="overlay"></div>
         <div class="container">
             <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
@@ -112,19 +112,21 @@
                 <div class="col-lg-9">
                     <div class="row">
                         @foreach ($cars as $car)
-                            <div class="col-md-4 ftco-animate">
-                                <div class="destination">
+                            <div class="col-md-4 ftco-animate d-flex">
+                                <div class="destination d-flex flex-column w-100">
+
                                     <a href="{{ route('client.car.detail', $car->id) }}"
                                         class="img img-2 d-flex justify-content-center align-items-center"
                                         style="background-image: url('{{ asset('uploads/cars/' . $car->image) }}');">
-                                        {{-- <div class="icon d-flex justify-content-center align-items-center">
-                                            <span class="icon-search2"></span>
-                                        </div> --}}
                                     </a>
-                                    <div class="text p-3">
-                                        <div class="d-flex">
+
+                                    <div class="text p-3 d-flex flex-column flex-grow-1">
+                                        <div class="d-flex justify-content-between">
                                             <div class="one">
-                                                <h3><a href="{{ route('client.car.detail', $car->id) }}">{{ $car->name }}</a>
+                                                <h3>
+                                                    <a href="{{ route('client.car.detail', $car->id) }}">
+                                                        {{ $car->name }}
+                                                    </a>
                                                 </h3>
                                                 <p class="rate">
                                                     <i class="icon-star"></i>
@@ -136,20 +138,22 @@
                                                 </p>
                                             </div>
                                             <div class="two">
-                                                <span class="price">{{ $car->price }}</span>
+                                                <span class="price">{{ number_format($car->price) }}
+                                                    VND<br><small>/Chuyến</small></span>
                                             </div>
                                         </div>
-                                        <p>{{ $car->title }}</p>
-                                        <p class="days"><span>2 days 3 nights</span></p>
-                                        <hr>
-                                        <p class="bottom-area d-flex">
-                                            <span><i class="icon-map-o"></i> San Franciso, CA</span>
-                                            <span class="ml-auto"><a href="#">Discover</a></span>
+                                        <p class="flex-grow-1">{{ $car->title }}</p>
+                                        <p class="bottom-area d-flex mt-auto">
+                                            <span class="ml-auto">
+                                                <a href="{{ route('client.car.detail', $car->id) }}">Chi tiết</a>
+                                            </span>
                                         </p>
                                     </div>
+
                                 </div>
                             </div>
                         @endforeach
+
                     </div>
                     <div class="row mt-5">
                         <div class="col text-center">

@@ -1,13 +1,13 @@
 @extends('layouts.client')
 @section('title', 'Tour')
-@section('active', '/tour')
+@section('active', 'tour')
 @section('content')
-    <div class="hero-wrap js-fullheight" style="background-image: url({{ asset('assets/images/bg_3.jpg') }});">
+    <div class="hero-wrap hero-fixed-height" style="background-image: url({{ asset('assets/images/bg_2.jpg') }});">
         <div class="overlay"></div>
         <div class="container">
             <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
                 data-scrollax-parent="true">
-                <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+                <div class="col-md-9 ftco-animate text-center">
                     <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span
                             class="mr-2"><a href="index.html">Home</a></span> <span>Tour</span></p>
                     <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Destination</h1>
@@ -48,11 +48,11 @@
                                 <div class="form-group">
                                     <div class="range-slider">
                                         <span>
-                                            <input type="number" name="price_min" value="25000" min="0" max="1200000" />-
-                                            <input type="number" name="price_max" value="50000" min="0" max="1200000" />
+                                            <input type="number" name="price_min" value="25000" min="0" max="1000000" />-
+                                            <input type="number" name="price_max" value="50000" min="0" max="1000000" />
                                         </span>
-                                        <input value="1000" min="0" max="1200000" step="500" type="range" />
-                                        <input value="50000" min="0" max="1200000" step="500" type="range" />
+                                        <input value="1000" min="0" max="1000000" step="500" type="range" />
+                                        <input value="50000" min="0" max="1000000" step="500" type="range" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -110,19 +110,20 @@
                 <div class="col-lg-9">
                     <div class="row">
                         @foreach ($tours as $tour)
-                            <div class="col-md-4 ftco-animate">
-                                <div class="destination">
+                            <div class="col-md-4 ftco-animate d-flex">
+                                <div class="destination d-flex flex-column w-100">
                                     <a href="{{ route('client.tour.detail', $tour->id) }}"
                                         class="img img-2 d-flex justify-content-center align-items-center"
                                         style="background-image: url('{{ asset('uploads/tours/' . $tour->image) }}');">
-                                        {{-- <div class="icon d-flex justify-content-center align-items-center">
-                                            <span class="icon-search2"></span>
-                                        </div> --}}
                                     </a>
-                                    <div class="text p-3">
-                                        <div class="d-flex">
+
+                                    <div class="text p-3 d-flex flex-column flex-grow-1">
+                                        <div class="d-flex justify-content-between">
                                             <div class="one">
-                                                <h3><a href="{{ route('client.tour.detail', $tour->id) }}">{{ $tour->name }}</a>
+                                                <h3>
+                                                    <a href="{{ route('client.tour.detail', $tour->id) }}">
+                                                        {{ $tour->name }}
+                                                    </a>
                                                 </h3>
                                                 <p class="rate">
                                                     <i class="icon-star"></i>
@@ -134,18 +135,22 @@
                                                 </p>
                                             </div>
                                             <div class="two">
-                                                <span class="price">{{ number_format($tour->price) }}VNĐ</span>
+                                                <span class="price">{{ number_format($tour->price) }} VNĐ</span>
                                             </div>
                                         </div>
-                                        <p>{{ $tour->title }}</p>
-                                        <p class="days"><span>{{ $tour->time }}</span></p>
+
+                                        <p class="flex-grow-1">{{ $tour->title }}</p>
+
+                                        <p class="days"><span>{{ $tour->duration_days }} days / {{ $tour->duration_nights }}
+                                                nights</span></p>
+
                                         <hr>
-                                        <p class="bottom-area d-flex">
+
+                                        <p class="bottom-area mt-auto">
                                             <span><i class="icon-map-o"></i> {{ $tour->address }}</span>
-                                            <span class="ml-auto"><a href="{{ route('client.tour.detail', $tour->id) }}">Chi
-                                                    tiết</a></span>
                                         </p>
                                     </div>
+
                                 </div>
                             </div>
                         @endforeach
@@ -190,3 +195,10 @@
                 stroke="#F96D00" />
         </svg></div>
 @endsection
+<style>
+    .hero-fixed-height {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+    }
+</style>

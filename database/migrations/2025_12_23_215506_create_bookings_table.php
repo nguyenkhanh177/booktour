@@ -14,9 +14,19 @@ return new class extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->decimal('total_price', 15, 2);
-            $table->boolean('status')->default('0');
+            $table->foreignId('tour_id')->nullable()->constrained('tours')->nullOnDelete();
+            $table->string('booking_code')->unique();
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->decimal('total_price', 15, 2)->default(0);
+            $table->string('status')->default('pending');
+            $table->string('payment_method')->nullable();
+            $table->string('payment_status')->default('unpaid');
+            $table->text('note')->nullable();
             $table->timestamps();
+
+            // Index tối ưu
+            $table->index(['user_id', 'status']);
         });
     }
 

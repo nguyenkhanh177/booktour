@@ -11,7 +11,7 @@
                 <table class="table table-bordered table-hover">
                     <thead class="thead-dark">
                         <tr>
-                            <th>#ID</th>
+                            <th>STT</th>
                             <th>Khách hàng</th>
                             <th>Tổng tiền</th>
                             <th>Ngày đặt</th>
@@ -22,7 +22,7 @@
                     <tbody>
                         @foreach($bookings as $booking)
                             <tr>
-                                <td>#{{ $booking->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>
                                     <strong>{{ $booking->user->name ?? 'Khách vãng lai' }}</strong><br>
                                     <small>{{ $booking->user->email ?? '' }}</small>
@@ -37,7 +37,7 @@
                                         @method('PATCH')
                                         <select name="status" onchange="this.form.submit()"
                                             class="form-control form-control-sm 
-                                    {{ $booking->status == 0 ? 'text-warning' : ($booking->status == 1 ? 'text-success' : 'text-danger') }}">
+                                            {{ $booking->status == 0 ? 'text-warning' : ($booking->status == 1 ? 'text-success' : 'text-danger') }}">
                                             <option value="0" {{ $booking->status == 0 ? 'selected' : '' }}>Chờ xác nhận</option>
                                             <option value="1" {{ $booking->status == 1 ? 'selected' : '' }}>Đã xác nhận</option>
                                             <option value="2" {{ $booking->status == 2 ? 'selected' : '' }}>Đã hủy</option>

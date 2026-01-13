@@ -66,25 +66,56 @@
                 <div class="col-md-4 sidebar ftco-animate">
 
                     <div class="sidebar-box bg-light p-4 rounded">
-                        <p class="text-center text-muted">/ người</p>
+                    <form action="{{ route('cart.add') }}" method="POST">
+                        @csrf
 
-                        <form action="{{ route('cart.add') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="id" value="{{ $hotels->id }}">
-                            <input type="hidden" name="type" value="hotel"> <input type="hidden" name="name"
-                                value="{{ $hotels->name }}">
-                            <input type="hidden" name="price" value="{{ $hotels->price }}">
+                        <input type="hidden" name="id" value="{{ $hotels->id }}">
+                        <input type="hidden" name="type" value="hotel">
+                        <input type="hidden" name="name" value="{{ $hotels->name }}">
+                        <input type="hidden" name="price" value="{{ $hotels->price }}">
 
-                            <div class="form-group">
-                                <label>Số lượng người:</label>
-                                <input type="number" name="quantity" value="1" min="1" class="form-control">
-                            </div>
+                        <!-- CHECK IN -->
+                        <div class="form-group mb-3">
+                            <label>Ngày nhận phòng</label>
+                            <input type="date"
+                                name="check_in"
+                                class="form-control"
+                                min="{{ now()->toDateString() }}"
+                                required>
+                        </div>
 
-                            <button type="submit" class="btn btn-primary btn-block">
-                                <i class="fa fa-shopping-cart"></i> Đặt ngay
-                            </button>
-                        </form>
-                    </div>
+                        <!-- CHECK OUT -->
+                        <div class="form-group mb-3">
+                            <label>Ngày trả phòng</label>
+                            <input type="date"
+                                name="check_out"
+                                class="form-control"
+                                min="{{ now()->addDay()->toDateString() }}"
+                                required>
+                        </div>
+
+                        <!-- SỐ PHÒNG -->
+                        <div class="form-group mb-3">
+                            <label>Số phòng</label>
+                            <input type="number"
+                                name="quantity"
+                                value="1"
+                                min="1"
+                                class="form-control"
+                                required>
+                        </div>
+                        {{-- Giá --}}
+                        <div class="form-group text-center mt-3">
+                            <strong class="text-danger" style="font-size: 20px">
+                                {{ number_format($hotels->price) }}đ / đêm / phòng
+                            </strong>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block w-100">
+                            <i class="fa fa-bed"></i> Đặt phòng
+                        </button>
+                    </form>
+                </div>
+
                 </div>
             </div>
         </div>

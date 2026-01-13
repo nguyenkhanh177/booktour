@@ -63,18 +63,17 @@
 		<div class="container-fluid">
 			<div class="row">
 				@foreach($tours->take(4) as $tour)
-					<div class="col-sm col-md-6 col-lg-3 ftco-animate">
-						<div class="destination">
+					<div class="col-sm col-md-6 col-lg-3 ftco-animate d-flex">
+						<div class="destination d-flex flex-column w-100">
+
 							<a href="#" class="img img-2 d-flex justify-content-center align-items-center"
 								style="background-image: url('{{ asset('uploads/tours/' . $tour->image) }}');">
-								{{-- <div class="icon d-flex justify-content-center align-items-center">
-									<span class="icon-search2"></span>
-								</div> --}}
 							</a>
-							<div class="text p-3">
-								<div class="d-flex">
+
+							<div class="text p-3 d-flex flex-column flex-grow-1">
+								<div class="d-flex justify-content-between">
 									<div class="one">
-										<h3><a href="#">{{$tour->name}}</a></h3>
+										<h3><a href="#">{{ $tour->name }}</a></h3>
 										<p class="rate">
 											<i class="icon-star"></i>
 											<i class="icon-star"></i>
@@ -85,17 +84,28 @@
 										</p>
 									</div>
 									<div class="two">
-										<span class="price">{{number_format($tour->price)}} VNĐ</span>
+										<span class="price">{{ number_format($tour->price) }} VNĐ</span>
 									</div>
 								</div>
-								<p>{{$tour->title}}</p>
-								<p class="days"><span>2 days 3 nights</span></p>
+
+								<p class="flex-grow-1">{{ $tour->title }}</p>
+
+								<p class="days"><span>{{ $tour->duration_days }} days / {{ $tour->duration_nights }}
+										nights</span></p>
+
 								<hr>
-								<p class="bottom-area d-flex">
-									<span><i class="icon-map-o"></i> San Franciso, CA</span>
-									<span class="ml-auto"><a href="#">Discover</a></span>
+
+								<p class="bottom-area d-flex align-items-center">
+									<span class="address text-truncate">
+										<i class="icon-map-o"></i> {{ $tour->address }}
+									</span>
+
+									<span class="ml-auto flex-shrink-0">
+										<a href="{{ route('client.tour.detail', $tour->id) }}">Chi tiết</a>
+									</span>
 								</p>
 							</div>
+
 						</div>
 					</div>
 				@endforeach
@@ -142,15 +152,21 @@
 									</div>
 									<div class="two">
 										<span class="price per-price">{{number_format($hotel->price)}}
-											VNĐ<br><small>/night</small></span>
+											VNĐ<br><small>/đêm</small></span>
 									</div>
 								</div>
 								<p>{{$hotel->title}}</p>
 								<hr>
-								<p class="bottom-area d-flex">
-									<span><i class="icon-map-o"></i> {{$hotel->address}}</span>
-									<span class="ml-auto"><a href="#">Book Now</a></span>
+								<p class="bottom-area d-flex align-items-center">
+									<span class="address text-truncate">
+										<i class="icon-map-o"></i> {{ $hotel->address }}
+									</span>
+
+									<span class="ml-auto flex-shrink-0">
+										<a href="{{ route('client.hotel.detail', $hotel->id) }}">Chi tiết</a>
+									</span>
 								</p>
+
 							</div>
 						</div>
 					</div>
@@ -199,14 +215,15 @@
 									</div>
 									<div class="two">
 										<span class="price per-price">{{number_format($restaurant->price)}}
-											VNĐ<br><small>/night</small></span>
+											VNĐ<br><small>/người</small></span>
 									</div>
 								</div>
 								<p>{{$restaurant->title}}</p>
 								<hr>
 								<p class="bottom-area d-flex">
 									<span><i class="icon-map-o"></i> {{$restaurant->address}}</span>
-									<span class="ml-auto"><a href="#">Book Now</a></span>
+									<span class="ml-auto"><a href="{{route('client.restaurant.detail', $restaurant->id)}}">Chi
+											tiết</a></span>
 								</p>
 							</div>
 						</div>
@@ -255,14 +272,13 @@
 									</div>
 									<div class="two">
 										<span class="price per-price">{{number_format($car->price)}}
-											VNĐ<br><small>/night</small></span>
+											VNĐ<br><small>/ngày</small></span>
 									</div>
 								</div>
 								<p>{{$car->title}}</p>
 								<hr>
 								<p class="bottom-area d-flex">
-									<span><i class="icon-map-o"></i> {{$car->address}}</span>
-									<span class="ml-auto"><a href="#">Book Now</a></span>
+									<span class="ml-auto"><a href="{{route('client.car.detail', $car->id)}}">Chi tiết</a></span>
 								</p>
 							</div>
 						</div>

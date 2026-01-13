@@ -18,6 +18,10 @@
                 <input type="text" name="title" class="form-control" required>
             </div>
             <div class="form-group">
+                <label>Số lượng khách tối đa</label>
+                <input type="number" name="capacity" class="form-control">
+            </div>
+            <div class="form-group">
                 <label>Mô tả</label>
                 <textarea name="description" class="form-control" rows="4"></textarea>
             </div>

@@ -65,24 +65,50 @@
                 <!-- RIGHT SIDEBAR -->
                 <div class="col-md-4 sidebar ftco-animate">
                     <div class="sidebar-box bg-light p-4 rounded">
-                        <p class="text-center text-muted">/ người</p>
 
                         <form action="{{ route('cart.add') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="id" value="{{ $tours->id }}">
-                            <input type="hidden" name="type" value="tour"> <input type="hidden" name="name"
-                                value="{{ $tours->name }}">
-                            <input type="hidden" name="price" value="{{ $tours->price }}">
 
+                            {{-- Thông tin tour --}}
+                            <input type="hidden" name="id" value="{{ $tours->id }}">
+                            <input type="hidden" name="type" value="tour">
+                            <input type="hidden" name="name" value="{{ $tours->name }}">
+                            <input type="hidden" name="price" value="{{ $tours->price }}">
+                            <input type="hidden" name="duration_days" value="{{ $tours->duration_days }}">
+                            <input type="hidden" name="duration_nights" value="{{ $tours->duration_nights }}">
+
+                            {{-- Ngày khởi hành --}}
                             <div class="form-group">
-                                <label>Số lượng người:</label>
-                                <input type="number" name="quantity" value="1" min="1" class="form-control">
+                                <label>Ngày khởi hành</label>
+                                <input type="date" name="start_date" class="form-control" min="{{ now()->toDateString() }}"
+                                    required>
                             </div>
 
-                            <button type="submit" class="btn btn-primary btn-block">
-                                <i class="fa fa-shopping-cart"></i> Đặt ngay
+                            {{-- Số người --}}
+                            <div class="form-group">
+                                <label>Số người</label>
+                                <input type="number" name="quantity" value="1" min="1" class="form-control" required>
+                            </div>
+
+                            {{-- Hiển thị thời gian tour (readonly) --}}
+                            <div class="form-group">
+                                <label>Thời gian tour</label>
+                                <input type="text" class="form-control"
+                                    value="{{ $tours->duration_days }} ngày {{ $tours->duration_nights }} đêm" readonly>
+                            </div>
+
+                            {{-- Giá --}}
+                            <div class="form-group text-center mt-3">
+                                <strong class="text-danger" style="font-size: 20px">
+                                    {{ number_format($tours->price) }}đ / người
+                                </strong>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block btn-lg mt-3">
+                                <i class="fa fa-shopping-cart"></i> Đặt tour
                             </button>
                         </form>
+
                     </div>
                 </div>
             </div>

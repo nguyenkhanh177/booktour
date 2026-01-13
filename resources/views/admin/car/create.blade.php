@@ -25,13 +25,17 @@
                 <label>Giá car (VNĐ)</label>
                 <input type="number" name="price" class="form-control">
             </div>
-            <div class="form-group">
-                <label>Ảnh car</label>
-                <input type="file" name="image" class="form-control">
-            </div>
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label>Địa chỉ</label>
                 <input type="text" name="address" class="form-control">
+            </div> --}}
+            <div class="form-group">
+                <label>Loại xe</label>
+                <input type="text" name="vehicle_type" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Số chỗ ngồi</label>
+                <input type="number" name="number_of_seats" class="form-control">
             </div>
             <div class="form-group">
                 <label>Sđt</label>
@@ -42,13 +46,16 @@
                 <input type="text" name="email" class="form-control">
             </div>
             <div class="form-group">
+                <label>Ảnh car</label>
+                <input type="file" name="image" class="form-control">
+            </div>
+            <div class="form-group">
                 <label>Trạng thái</label>
                 <select name="status" class="form-control">
                     <option value="1">Hiển thị</option>
                     <option value="0">Ẩn</option>
                 </select>
             </div>
-
             <button class="btn btn-success">Thêm mới</button>
             <a href="{{ route('admin.car') }}" class="btn btn-secondary">Quay lại</a>
 

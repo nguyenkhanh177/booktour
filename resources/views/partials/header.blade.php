@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="ftco-nav">
       <ul class="navbar-nav ml-auto">
         @foreach ($public_menus as $menu)
-          <li class="nav-item {{ $menu->alias == $active ? 'active' : '' }}"><a href="{{ $menu->alias }}"
+          <li class="nav-item {{ $menu->alias == $active ? 'active' : '' }}"><a href="{{ url($menu->alias) }}"
               class="nav-link">{{ $menu->name }}</a></li>
         @endforeach
         @guest
@@ -24,12 +24,16 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="{{ route('profile.index') }}">
                 <i class="icon-vcard mr-2"></i> Thông tin người dùng
               </a>
 
               <a class="dropdown-item" href="#">
-                <i class="icon-lock mr-2"></i> Đổi mật khẩu
+                <i class="icon-shopping-cart mr-2"></i> Giỏ hàng
+              </a>
+
+              <a class="dropdown-item" href="{{ route('bookingHistory') }}">
+                <i class="icon-shopping-cart mr-2"></i> Lịch sử giao dịch
               </a>
 
               <div class="dropdown-divider"></div>

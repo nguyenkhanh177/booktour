@@ -46,7 +46,7 @@
             <button type="submit">Đăng ký</button>
 
         </form>
-
+        <a href="{{ route('login') }}" class="back-home">Đăng nhập</a>
         <a href="{{ route('client.home') }}" class="back-home">← Quay lại trang chủ</a>
     </div>
 

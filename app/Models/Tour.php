@@ -18,6 +18,8 @@ class Tour extends Model
         'price',
         'address',
         'time',
+        'duration_days',
+        'duration_nights',
         'status',
     ];
     protected $casts = [

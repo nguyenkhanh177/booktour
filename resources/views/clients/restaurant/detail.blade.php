@@ -66,25 +66,71 @@
                 <!-- RIGHT SIDEBAR -->
                 <div class="col-md-4 sidebar ftco-animate">
                     <div class="sidebar-box bg-light p-4 rounded">
-                        <p class="text-center text-muted">/ người</p>
-
                         <form action="{{ route('cart.add') }}" method="POST">
                             @csrf
+
+                            {{-- Thông tin dịch vụ --}}
                             <input type="hidden" name="id" value="{{ $restaurants->id }}">
-                            <input type="hidden" name="type" value="restaurant"> <input type="hidden" name="name"
-                                value="{{ $restaurants->name }}">
+                            <input type="hidden" name="type" value="restaurant">
+                            <input type="hidden" name="name" value="{{ $restaurants->name }}">
                             <input type="hidden" name="price" value="{{ $restaurants->price }}">
 
+                            {{-- Số khách --}}
                             <div class="form-group">
-                                <label>Số lượng người:</label>
-                                <input type="number" name="quantity" value="1" min="1" class="form-control">
+                                <label>Số lượng khách</label>
+                                <input
+                                    type="number"
+                                    name="quantity"
+                                    class="form-control"
+                                    min="1"
+                                    max="{{ $restaurants->capacity ?? 50 }}"
+                                    value="2"
+                                    required>
                             </div>
 
-                            <button type="submit" class="btn btn-primary btn-block">
-                                <i class="fa fa-shopping-cart"></i> Đặt ngay
-                            </button>
-                        </form>
-                    </div>
+                        {{-- Ngày ăn --}}
+                        <div class="form-group">
+                            <label>Ngày dùng bữa</label>
+                            <input
+                                type="date"
+                                name="service_date"
+                                class="form-control"
+                                min="{{ now()->toDateString() }}"
+                                required>
+                        </div>
+
+                        {{-- Giờ ăn --}}
+                        <div class="form-group">
+                            <label>Giờ dùng bữa</label>
+                            <input
+                                type="time"
+                                name="service_time"
+                                class="form-control"
+                                required>
+                        </div>
+
+                        {{-- Ghi chú --}}
+                        <div class="form-group">
+                            <label>Ghi chú (tuỳ chọn)</label>
+                            <textarea
+                                name="note"
+                                class="form-control"
+                                rows="2"
+                                placeholder="VD: sinh nhật, ăn chay, phòng riêng..."></textarea>
+                        </div>
+
+                        {{-- Giá --}}
+                        <div class="form-group text-center mt-3">
+                            <strong class="text-danger" style="font-size: 20px">
+                                {{ number_format($restaurants->price) }}đ / người
+                            </strong>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fa fa-shopping-cart"></i> Đặt bàn
+                        </button>
+                    </form>
+                </div>
+
                 </div>
             </div>
         </div>

@@ -19,9 +19,10 @@ return new class extends Migration
             $table->string('description', 500);
             $table->string('image', 200);
             $table->string('address', 100);
-            $table->string('time', 100);
             $table->decimal('price', 10, 2);
             $table->boolean('status')->default(1);
+            $table->integer('duration_days')->default(1);
+            $table->integer('duration_nights')->default(0);
             $table->timestamps();
         });
     }

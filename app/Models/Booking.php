@@ -13,8 +13,16 @@ class Booking extends Model
         'user_id',
         'total_price',
         'status',
-
+        'booking_code',
+        'start_date',
+        'end_date',
+        'payment_method',
+        'payment_status',
+        'note',
     ];
+    const STATUS_PENDING = 0;
+    const STATUS_CONFIRMED = 1;
+    const STATUS_CANCELLED = 2;
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -24,5 +32,10 @@ class Booking extends Model
     {
         // Giả sử tên bảng chi tiết của bạn đang là booking_details
         return $this->hasMany(BookingDetail::class, 'booking_id');
+    }
+    public function tour()
+    {
+        // Giả sử cột khóa ngoại trong bảng bookings của bạn là tour_id
+        return $this->belongsTo(Tour::class, 'tour_id');
     }
 }

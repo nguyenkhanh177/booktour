@@ -1,8 +1,8 @@
 @extends('layouts.client')
 @section('title', 'Restaurant')
-@section('active', '/restaurant')
+@section('active', 'restaurant')
 @section('content')
-    <div class="hero-wrap js-fullheight" style="background-image: url({{ asset('assets/images/bg_4.jpg') }});">
+    <div class="hero-wrap js-fullheight" style="background-image: url({{ asset('assets/images/bg_restaurant_1.jpg') }});">
         <div class="overlay"></div>
         <div class="container">
             <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
@@ -15,8 +15,6 @@
             </div>
         </div>
     </div>
-
-
     <section class="ftco-section ftco-degree-bg">
         <div class="container">
             <div class="row">
@@ -112,20 +110,21 @@
                 <div class="col-lg-9">
                     <div class="row">
                         @foreach ($restaurants as $restaurant)
-                            <div class="col-md-4 ftco-animate">
-                                <div class="destination">
+                            <div class="col-md-4 ftco-animate d-flex">
+                                <div class="destination d-flex flex-column w-100">
+
                                     <a href="{{ route('client.restaurant.detail', $restaurant->id) }}"
                                         class="img img-2 d-flex justify-content-center align-items-center"
                                         style="background-image: url('{{ asset('uploads/restaurants/' . $restaurant->image) }}');">
-                                        {{-- <div class="icon d-flex justify-content-center align-items-center">
-                                            <span class="icon-search2"></span>
-                                        </div> --}}
                                     </a>
-                                    <div class="text p-3">
-                                        <div class="d-flex">
+
+                                    <div class="text p-3 d-flex flex-column flex-grow-1">
+                                        <div class="d-flex justify-content-between">
                                             <div class="one">
-                                                <h3><a
-                                                        href="{{ route('client.restaurant.detail', $restaurant->id) }}">{{ $restaurant->name }}</a>
+                                                <h3>
+                                                    <a href="{{ route('client.restaurant.detail', $restaurant->id) }}">
+                                                        {{ $restaurant->name }}
+                                                    </a>
                                                 </h3>
                                                 <p class="rate">
                                                     <i class="icon-star"></i>
@@ -137,19 +136,29 @@
                                                 </p>
                                             </div>
                                             <div class="two">
-                                                <span class="price">{{ $restaurant->price }}</span>
+                                                <span class="price">{{ number_format($restaurant->price) }}
+                                                    VNĐ<br><small>/người</small></span>
                                             </div>
                                         </div>
-                                        <p>{{ $restaurant->title }}</p>
+
+                                        <p class="flex-grow-1">{{ $restaurant->title }}</p>
+
                                         <hr>
-                                        <p class="bottom-area d-flex">
+
+                                        <p class="bottom-area d-flex mt-auto">
                                             <span><i class="icon-map-o"></i> {{ $restaurant->address }}</span>
-                                            <span class="ml-auto"><a href="#">Discover</a></span>
+                                            <span class="ml-auto">
+                                                <a href="{{ route('client.restaurant.detail', $restaurant->id) }}">
+                                                    Chi tiết
+                                                </a>
+                                            </span>
                                         </p>
                                     </div>
+
                                 </div>
                             </div>
                         @endforeach
+
                     </div>
                     <div class="row mt-5">
                         <div class="col text-center">

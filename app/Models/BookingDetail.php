@@ -13,6 +13,9 @@ class BookingDetail extends Model
         'service_id',
         'price',
         'quantity',
+        'start_date',
+        'end_date',
+        'note',
     ];
     public function service()
     {

@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -47,5 +48,10 @@ class User extends Authenticatable
     public function isActive(): bool
     {
         return $this->status === 1;
+    }
+    public function bookings(): HasMany
+    {
+        // 'user_id' là tên cột khóa ngoại trong bảng bookings của bạn
+        return $this->hasMany(Booking::class, 'user_id');
     }
 }

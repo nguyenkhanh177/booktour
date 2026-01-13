@@ -1,8 +1,8 @@
 @extends('layouts.client')
 @section('title', 'Hotel')
-@section('active', '/hotel')
+@section('active', 'hotel')
 @section('content')
-    <div class="hero-wrap js-fullheight" style="background-image: url({{ asset('assets/images/bg_4.jpg') }});">
+    <div class="hero-wrap js-fullheight" style="background-image: url({{ asset('assets/images/bg_hotel_1.jpg') }});">
         <div class="overlay"></div>
         <div class="container">
             <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
@@ -112,55 +112,62 @@
                 <div class="col-lg-9">
                     <div class="row">
                         @foreach ($hotels as $hotel)
-                            <div class="col-md-4 ftco-animate">
-                                <div class="destination">
+                            <div class="col-md-4 ftco-animate d-flex">
+                                <div class="destination d-flex flex-column w-100">
                                     <a href="{{ route('client.hotel.detail', $hotel->id) }}"
                                         class="img img-2 d-flex justify-content-center align-items-center"
                                         style="background-image: url('{{ asset('uploads/hotels/' . $hotel->image) }}');">
-                                        {{-- <div class="icon d-flex justify-content-center align-items-center">
-                                            <span class="icon-search2"></span>
-                                        </div> --}}
                                     </a>
-                                    <div class="text p-3">
-                                        <div class="d-flex">
+
+                                    <div class="text p-3 d-flex flex-column flex-grow-1">
+                                        <div class="d-flex justify-content-between">
                                             <div class="one">
-                                                <h3><a
-                                                        href="{{ route('client.hotel.detail', $hotel->id) }}">{{ $hotel->name }}</a>
+                                                <h3>
+                                                    <a href="{{ route('client.hotel.detail', $hotel->id) }}">
+                                                        {{ $hotel->name }}
+                                                    </a>
                                                 </h3>
-                                                <p class="rate">
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star-o"></i>
-                                                    <span>8 Rating</span>
-                                                </p>
                                             </div>
                                             <div class="two">
-                                                <span class="price">{{ $hotel->price }}</span>
+                                                <span class="price">{{ number_format($hotel->price) }}
+                                                    VND<br><small>/night</small></span>
                                             </div>
                                         </div>
-                                        <p>{{ $hotel->title }}</p>
+                                        <p class="rate">
+                                            <i class="icon-star"></i>
+                                            <i class="icon-star"></i>
+                                            <i class="icon-star"></i>
+                                            <i class="icon-star"></i>
+                                            <i class="icon-star-o"></i>
+                                            <span>8 Rating</span>
+                                        </p>
+
+                                        <p class="flex-grow-1">{{ $hotel->title }}</p>
+
                                         <hr>
-                                        <p class="bottom-area d-flex">
+
+                                        <p class="bottom-area d-flex mt-auto">
                                             <span><i class="icon-map-o"></i> {{ $hotel->address }}</span>
-                                            <span class="ml-auto"><a href="{{ route('client.hotel.detail', $hotel->id) }}">Chi
-                                                    tiết</a></span>
+                                            <span class="ml-auto">
+                                                <a href="{{ route('client.hotel.detail', $hotel->id) }}">Chi tiết</a>
+                                            </span>
                                         </p>
                                     </div>
+
                                 </div>
                             </div>
                         @endforeach
+
                     </div>
                     <div class="row mt-5">
-                        <div class="col text-center">
+                        <div class=" col text-center">
                             <div class="block-27">
                                 <ul>
                                     {{-- Nút quay lại --}}
                                     @if ($hotels->onFirstPage())
                                         <li class="disabled"><span>&lt;</span></li>
                                     @else
-                                        <li><a href="{{ $hotels->previousPageUrl() }}">&lt;</a></li>
+                                        <li><a href=" {{ $hotels->previousPageUrl() }}">&lt;</a></li>
                                     @endif
 
                                     {{-- Danh sách các số trang --}}

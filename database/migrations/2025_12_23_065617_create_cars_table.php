@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('description', 500);
             $table->decimal('price', 15, 2);
             $table->integer('status')->default(1);
+            $table->integer('number_of_seats')->default(0);
+            $table->string('vehicle_type');
             $table->timestamps();
         });
     }

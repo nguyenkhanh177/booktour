@@ -15,6 +15,11 @@ use App\Http\Controllers\Client\CarController;
 use App\Http\Controllers\Admin\CarAdminController;
 use App\Http\Controllers\Client\BookingController;
 use App\Http\Controllers\Admin\BookingAdminController;
+use App\Http\Controllers\Admin\UserAdminController;
+use App\Http\Controllers\Client\ChatbotController;
+use App\Http\Controllers\Client\PayMentController;
+use App\Http\Controllers\Client\UserController;
+
 //login
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -25,8 +30,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 //register
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'Register'])->name('register');
-
-
 
 //client
 Route::get("/", [HomeController::class, 'index'])->name('client.home');
@@ -65,6 +68,12 @@ Route::middleware('auth')->group(function () {
 //admin
 // Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 Route::get('/admin', [AdminHomeController::class, 'adminIndex'])->name('admin');
+
+//admin user
+Route::get('/admin/user', [UserAdminController::class, 'index'])->name('admin.user.index');
+Route::get('/admin/user/{id}', [UserAdminController::class, 'detail'])->name('admin.user.detail');
+Route::patch('/admin/user/{id}/toggle-status', [UserAdminController::class, 'toggleStatus'])->name('admin.user.toggleStatus');
+Route::patch('/admin/user/{id}/update-role', [UserAdminController::class, 'updateRole'])->name('admin.user.updateRole');
 
 //menu
 Route::get('/admin/menu', [MenuController::class, 'index'])->name('admin.menu');
@@ -106,9 +115,37 @@ Route::get('/admin/car/{id}/edit', [CarAdminController::class, 'edit'])->name('a
 Route::put('/admin/car/{id}', [CarAdminController::class, 'update'])->name('admin.car.update');
 Route::delete('/admin/car/{id}', [CarAdminController::class, 'destroy'])->name('admin.car.destroy');
 
+//admin booking
+Route::get('/admin/booking', [BookingAdminController::class, 'index'])->name('admin.booking');
+Route::get('/admin/booking/{id}', [BookingAdminController::class, 'show'])->name('admin.booking.show');
+Route::patch('/admin/booking/{id}/status', [BookingAdminController::class, 'updateStatus'])->name('admin.booking.updateStatus');
+
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/booking', [BookingAdminController::class, 'index'])->name('booking.index');
     Route::get('/booking/{id}', [BookingAdminController::class, 'show'])->name('booking.show');
     Route::delete('/booking/{id}', [BookingAdminController::class, 'destroy'])->name('booking.destroy');
     Route::patch('/booking/{id}/status', [BookingAdminController::class, 'updateStatus'])->name('booking.updateStatus');
 });
+
+Route::get('/vnpay-return', [PayMentController::class, 'vnpayReturn'])->name('vnpayReturn');
+Route::post('/vnpay-create', [PayMentController::class, 'createPayment'])->name('createPayment');
+
+// Chatbot test
+Route::get('/ai-test', function () {
+    return view('clients.chatbot.test');
+})->name('client.ai.test');
+
+Route::post('/ai-chat', [ChatbotController::class, 'sendMessage'])->name('client.ai.chat');
+Route::get('/chatbot', [ChatbotController::class, 'chatbot'])->name('client.chatbot');
+//profile
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile.index');
+    Route::put('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
+});
+//booking history
+Route::middleware(['auth'])->group(function () {
+    Route::get('/booking-history', [UserController::class, 'bookingHistory'])->name('bookingHistory');
+});
+
+// hóa đơn 
+Route::get('/booking/invoice/{id}', [UserController::class, 'showInvoice'])->name('booking.invoice');

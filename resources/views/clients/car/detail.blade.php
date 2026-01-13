@@ -63,27 +63,42 @@
 
                 <!-- RIGHT SIDEBAR -->
                 <div class="col-md-4 sidebar ftco-animate">
-
                     <div class="sidebar-box bg-light p-4 rounded">
-                        <p class="text-center text-muted">/ người</p>
-
                         <form action="{{ route('cart.add') }}" method="POST">
                             @csrf
+
                             <input type="hidden" name="id" value="{{ $cars->id }}">
-                            <input type="hidden" name="type" value="car"> <input type="hidden" name="name"
-                                value="{{ $cars->name }}">
+                            <input type="hidden" name="type" value="car">
+                            <input type="hidden" name="name" value="{{ $cars->name }}">
                             <input type="hidden" name="price" value="{{ $cars->price }}">
 
                             <div class="form-group">
-                                <label>Số lượng người:</label>
-                                <input type="number" name="quantity" value="1" min="1" class="form-control">
+                                <label>Ngày nhận xe</label>
+                                <input type="date" name="rent_start" class="form-control" required>
                             </div>
 
+                            <div class="form-group">
+                                <label>Ngày trả xe</label>
+                                <input type="date" name="rent_end" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Số lượng xe</label>
+                                <input type="number" name="quantity" value="1" min="1" class="form-control">
+                            </div>
+                        {{-- Giá --}}
+                        <div class="form-group text-center mt-3">
+                            <strong class="text-danger" style="font-size: 20px">
+                                {{ number_format($cars->price) }}đ / xe / ngày
+                            </strong>
+                        </div>
                             <button type="submit" class="btn btn-primary btn-block">
-                                <i class="fa fa-shopping-cart"></i> Đặt ngay
+                                <i class="fa fa-car"></i> Thuê xe
                             </button>
                         </form>
+
                     </div>
+
                 </div>
             </div>
         </div>

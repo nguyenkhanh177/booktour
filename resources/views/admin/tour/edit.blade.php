@@ -27,9 +27,12 @@
                 <input type="text" name="address" class="form-control" value="{{ $tours->address }}">
             </div>
             <div class="form-group">
-                <label>Thời gian</label>
-                <input type="text" name="time" class="form-control" value="{{ $tours->time }}"
-                    placeholder="VD: 3 ngày 2 đêm">
+                <label>Số ngày</label>
+                <input type="number" name="duration_days" class="form-control" value="{{ $tours->duration_days }}">
+            </div>
+            <div class="form-group">
+                <label>Số đêm</label>
+                <input type="number" name="duration_nights" class="form-control" value="{{ $tours->duration_nights }}">
             </div>
             <div class="form-group">
                 <label>Giá tour (VNĐ)</label>

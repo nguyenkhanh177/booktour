@@ -13,16 +13,30 @@ return new class extends Migration
     {
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
-            $table->string('alias', 100);
-            $table->string('title', 200);
-            $table->string('description', 500);
-            $table->string('address', 100);
-            $table->decimal('price', 15, 2);
-            $table->string('phone', 11);
-            $table->string('email');
-            $table->string('image', 255);
+
+            $table->string('name');
+            $table->string('alias')->unique();
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
+
+            // 💰 Giá
+            $table->decimal('price', 15, 2)->comment('Giá / người hoặc combo');
+
+            // 📍 Thông tin
+            $table->string('address');
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('image')->nullable();
+
+            // 🍽️ Nghiệp vụ
+            $table->integer('capacity')->comment('Sức chứa tối đa');
+            $table->time('open_time')->nullable();
+            $table->time('close_time')->nullable();
+
+            // 🍱 Phân loại
+            $table->string('category')->nullable(); // buffet, hải sản, tiệc cưới...
             $table->boolean('status')->default(1);
+
             $table->timestamps();
         });
     }

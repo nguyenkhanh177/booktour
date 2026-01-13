@@ -18,5 +18,7 @@ class Car extends Model
         'description',
         'price',
         'status',
+        'vehicle_type',
+        'number_of_seats',
     ];
 }
